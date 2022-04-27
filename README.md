@@ -2,7 +2,7 @@
 
 Soydev plugin series. 
 
-Dynamic font scaling for modern neovim GUI clients like [neovide][1] or [goneovim][2].
+Lua plugin that adds dynamic font scaling to modern neovim GUI clients like [neovide][1] or [goneovim][2].
 
 | **Keymaps**           |                            |
 | --------------------- | -------------------------- |
