@@ -1,6 +1,6 @@
 # size-matters.nvim
 
-Dynamic font scaling for modern neovim GUI clients in like [neovide][1] or [goneovim][2].
+Dynamic font scaling for modern neovim GUI clients like [neovide][1] or [goneovim][2].
 
 | **Keymaps**           |                            |
 | --------------------- | -------------------------- |
