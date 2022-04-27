@@ -10,7 +10,7 @@ Dynamic font scaling for modern neovim GUI clients in like [neovide][1] or [gone
 
 ## Installation
 
-Via a plugin manager like e.g., Packer
+Simplest way to install it is via ia a plugin manager. E.g., [packer.nvim][3]
 
 ```lua
 use "tenxsoydev/size-matters.nvim"
@@ -29,3 +29,4 @@ Being the latest stable release, we'll recommend upgrading your application and 
 
 [1]: https://github.com/neovide/neovide
 [2]: https://github.com/akiyosi/goneovim
+[3]: https://github.com/wbthomason/packer.nvim
