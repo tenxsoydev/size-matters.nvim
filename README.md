@@ -1,5 +1,7 @@
 # size-matters.nvim
 
+Soydev plugin series. 
+
 Dynamic font scaling for modern neovim GUI clients like [neovide][1] or [goneovim][2].
 
 | **Keymaps**           |                            |
