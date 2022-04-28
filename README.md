@@ -1,6 +1,6 @@
 # size-matters.nvim
 
-Soydev plugin series. 
+<sub>☕ Soydev plugin series.<sub>
 
 Lua plugin that adds dynamic font scaling to modern neovim GUI clients like [neovide][1] or [goneovim][2].
 
