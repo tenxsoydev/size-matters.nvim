@@ -9,10 +9,6 @@ local function get_font()
 	currFontSize = currFont:match('%"(.+)%"'):gsub(".*:h", "")
 end
 
-local function set_font()
-	vim.opt.guifont = currFont
-end
-
 local function update_font(size)
 	get_font()
 	if size == 'grow' then
@@ -20,7 +16,8 @@ local function update_font(size)
 	elseif size == 'shrink' then
 		currFont = currFontName .. ':h' .. tostring(tonumber(currFontSize) - 1)
 	end
-	set_font()
+	vim.opt.guifont = currFont
+	require("notify")(currFont)
 end
 
 local function reset_font()
