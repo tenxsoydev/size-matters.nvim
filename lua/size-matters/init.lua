@@ -30,7 +30,7 @@ local function reset_font()
 end
 
 vim.api.nvim_create_user_command('FontSizeUp', function() update_font('grow') end, { desc = 'Increase font size', bang = true })
-vim.api.nvim_create_user_command('FontSizeDown', function() update_font('shrink') end, { desc = 'Increase font size', bang = true })
+vim.api.nvim_create_user_command('FontSizeDown', function() update_font('shrink') end, { desc = 'Decrease font size', bang = true })
 vim.api.nvim_create_user_command('FontDefault', function() reset_font() end, { desc = 'Reset to default font', bang = true })
 
 vim.keymap.set('n', '<C-+>', function() update_font('grow') end, { desc = 'Increase font size', remap = false })
