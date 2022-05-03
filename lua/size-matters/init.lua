@@ -15,10 +15,10 @@ local function update_font(size)
 	get_font()
 	if size == 'grow' then
 		currFont = currFontName .. ':h' .. tostring(tonumber(currFontSize) + 1)
-		vim.notify({ " FontSize: " .. currFontSize }, nil, { render = "minimal",  timeout = 175, })
+		vim.notify({ " FontSize: " .. tonumber(currFontSize) + 1 }, nil, { render = "minimal",  timeout = 175, })
 	elseif size == 'shrink' then
 		currFont = currFontName .. ':h' .. tostring(tonumber(currFontSize) - 1)
-		vim.notify({ " FontSize: " .. currFontSize }, nil, { render = "minimal",  timeout = 175, })
+		vim.notify({ " FontSize: " .. tonumber(currFontSize) - 1 }, nil, { render = "minimal",  timeout = 175, })
 	end
 	vim.opt.guifont = currFont
 end
