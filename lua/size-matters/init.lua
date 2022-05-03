@@ -1,5 +1,6 @@
 vim.notify = require("notify")
--- icons: , , 
+-- Icons: , , 
+-- Magnification glass containing +- signs would fit well, though the signs are barely visible in some scenarios.
 
 local initFont = vim.inspect(vim.opt.guifont._value):match('%"(.+)%"')
 local currFont
@@ -26,7 +27,7 @@ end
 
 local function reset_font()
 	vim.opt.guifont = initFont
-	vim.notify({ " " .. initFont }, nil, { render = "minimal",  timeout = 175, })
+	vim.notify({ " " .. initFont }, nil, { render = "minimal",  timeout = 175, })
 end
 
 vim.api.nvim_create_user_command('FontSizeUp', function() update_font('grow') end, { desc = 'Increase font size', bang = true })

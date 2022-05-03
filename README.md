@@ -30,7 +30,7 @@ Being the latest stable release, we'll recommend upgrading your application and 
 
 ## Outlook
 
-- [ ] Improve notification for updating the font-size
+- [x] Improve notification for updating the font-size
 - [ ] Export options. E.g., for custom mappings / notification visibility
 - [ ] Branch with support for versions \< 0.7 (if there is a commuinty need for it)
 
