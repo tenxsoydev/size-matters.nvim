@@ -1,5 +1,5 @@
 vim.notify = require("notify")
-local notifyOpts = { render = "minimal", timeout = 150, minimum_width = 10, anchor = "SE" }
+local notifyOpts = { render = "minimal", timeout = 150, minimum_width = 10 }
 
 local initFont = vim.inspect(vim.opt.guifont._value):match('%"(.+)%"')
 local currFont
@@ -16,7 +16,7 @@ local function update_font(size)
 	get_font()
 	if size == 'grow' then
 		currFont = currFontName .. ':h' .. tostring(tonumber(currFontSize) + 1)
-		vim.notify(" FontSize " .. tonumber(currFontSize) + 1, "info", notifyOpts )
+		vim.notify(" FontSize " .. tonumber(currFontSize) + 1, "info", notifyOpts)
 	elseif size == 'shrink' then
 		currFont = currFontName .. ':h' .. tostring(tonumber(currFontSize) - 1)
 		vim.notify(" FontSize " .. tonumber(currFontSize) - 1, "info", notifyOpts)
