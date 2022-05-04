@@ -26,7 +26,7 @@ use {
 ### Requirements
 
 nvim >= v0.7. As the vim.api that was introduced with v0.7 is used.<br>
-Being the latest stable release, we'll recommend upgrading your application and config when possible.
+This also being the latest stable release, we'll recommend upgrading your application and config when possible.
 
 ## Outlook
 
