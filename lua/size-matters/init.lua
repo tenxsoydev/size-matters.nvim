@@ -1,6 +1,6 @@
 local initFont = vim.api.nvim_get_option("guifont")
 local currFont, currFontName, currFontSize
-local notifications = false
+local notifications = true
 
 local notify_ok, notify = pcall(require, "notify")
 if not notify_ok then
