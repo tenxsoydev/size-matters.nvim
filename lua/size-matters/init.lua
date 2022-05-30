@@ -1,15 +1,15 @@
 vim.notify = require("notify")
 local notifyOpts = { render = "minimal", timeout = 150, minimum_width = 10 }
 
-local initFont = vim.inspect(vim.opt.guifont._value):match('%"(.+)%"')
+local initFont = vim.api.nvim_get_option("guifont")
 local currFont
 local currFontName
 local currFontSize
 
 local function get_font()
-	currFont = vim.inspect(vim.opt.guifont._value)
-	currFontName = currFont:match('%"(.+)%"'):gsub("(.*)%:.*$", "%1")
-	currFontSize = currFont:match('%"(.+)%"'):gsub(".*:h", "")
+	currFont = vim.api.nvim_get_option("guifont")
+	currFontName = currFont:gsub("(.*)%:.*$", "%1")
+	currFontSize = currFont:gsub(".*:h", "")
 end
 
 local function update_font(size)
