@@ -15,18 +15,15 @@ Lua plugin that adds dynamic font scaling to modern neovim GUI clients like [neo
 A simple way to install the plugin is via a plugin manager. E.g., [packer.nvim][3]
 
 ```lua
-use {
-  "tenxsoydev/size-matters.nvim",
-  requires = {
-    'rcarriga/nvim-notify'
-  }
-}
+use "tenxsoydev/size-matters.nvim"
 ```
 
-Enable it via
+Then just load it like any other plugin. Additionally, you can wrap it in a condition to only be loaded when using a GUI client. E.g.,
 
 ```lua
-require("size-matters")
+if vim.g.neovide or vim.g.goneovim or vim.g.nvui or vim.g.gnvim then
+	require("size-matters")
+end
 ```
 
 ### Requirements
