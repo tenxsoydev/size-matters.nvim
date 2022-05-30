@@ -37,12 +37,12 @@ command('FontSizeDown', function() update_font('shrink') end, { desc = 'Decrease
 command('FontDefault', function() reset_font() end, { desc = 'Reset to default font' })
 
 local map = vim.keymap.set
-map('n', '<C-+>', function() update_font('grow') end, { desc = 'Increase font size', remap = false })
-map('n', '<C-S-+>', function() update_font('grow') end, { desc = 'Increase font size', remap = false })
-map('n', '<C-->', function() update_font('shrink') end, { desc = 'Decrease font size', remap = false })
-map('n', '<C-ScrollWheelUp>', function() update_font('grow') end, { desc = 'Increase font size', remap = false })
-map('n', '<C-ScrollWheelDown>', function() update_font('shrink') end, { desc = 'Decrease font size', remap = false })
-map('n', '<A-C-=>', reset_font, { desc = 'Reset to default font', remap = false })
+map('n', '<C-+>', function() update_font('grow') end, { desc = 'Increase font size' })
+map('n', '<C-S-+>', function() update_font('grow') end, { desc = 'Increase font size' })
+map('n', '<C-->', function() update_font('shrink') end, { desc = 'Decrease font size' })
+map('n', '<C-ScrollWheelUp>', function() update_font('grow') end, { desc = 'Increase font size' })
+map('n', '<C-ScrollWheelDown>', function() update_font('shrink') end, { desc = 'Decrease font size' })
+map('n', '<A-C-=>', reset_font, { desc = 'Reset to default font' })
 
 return {
 	update_font = update_font,
