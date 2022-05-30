@@ -23,6 +23,12 @@ use {
 }
 ```
 
+Enable it via
+
+```lua
+require("size-matters")
+```
+
 ### Requirements
 
 nvim >= v0.7. As the vim.api that was introduced with v0.7 is used.<br>
@@ -31,9 +37,10 @@ This also being the latest stable release, we'll recommend upgrading your applic
 ## Outlook
 
 -  [x] Improve notification for updating the font-size
--  [ ] Export options. E.g., for custom mappings / notification visibility
--  [ ] Branch with support for versions \< 0.7 (if there is a commuinty need for it)
+-  [ ] Export options. E.g., to disable default mappings / notification visibility
+-  [ ] Branch with support for versions \< 0.7 (if there is a community need for it)
 
 [1]: https://github.com/neovide/neovide
 [2]: https://github.com/akiyosi/goneovim
 [3]: https://github.com/wbthomason/packer.nvim
+
