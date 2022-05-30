@@ -4,11 +4,11 @@
 
 Lua plugin that adds dynamic font scaling to modern neovim GUI clients like [neovide][1] or [goneovim][2].
 
-|                       | **Keymaps**                  | **Commands**   |
-| --------------------- | ---------------------------- | -------------- |
-| Increase font size    | `Ctrl++` / `Ctrl+ScrollUp`   | `FontSizeUp`   |
-| Decrease font size    | `Ctrl+-` / `Ctrl+ScrollDown` | `FontSizeDown` |
-| Reset font to default | `Atl+Ctrl+=`                 | `FontDefault`  |
+|                       | **Keymaps**                                                          | **Commands**   |
+| --------------------- | -------------------------------------------------------------------- | -------------- |
+| Increase font size    | <kbd>Ctrl</kbd>+<kbd>+</kbd> / <kbd>Ctrl</kbd>+<kbd>ScrollUp</kbd>   | `FontSizeUp`   |
+| Decrease font size    | <kbd>Ctrl</kbd>+<kbd>-</kbd> / <kbd>Ctrl</kbd>+<kbd>ScrollDown</kbd> | `FontSizeDown` |
+| Reset font to default | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>=</kbd>                          | `FontDefault`  |
 
 ## Installation
 
@@ -30,9 +30,9 @@ This also being the latest stable release, we'll recommend upgrading your applic
 
 ## Outlook
 
-- [x] Improve notification for updating the font-size
-- [ ] Export options. E.g., for custom mappings / notification visibility
-- [ ] Branch with support for versions \< 0.7 (if there is a commuinty need for it)
+-  [x] Improve notification for updating the font-size
+-  [ ] Export options. E.g., for custom mappings / notification visibility
+-  [ ] Branch with support for versions \< 0.7 (if there is a commuinty need for it)
 
 [1]: https://github.com/neovide/neovide
 [2]: https://github.com/akiyosi/goneovim
