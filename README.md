@@ -28,7 +28,7 @@ end
 
 ### Configuration
 
-If you want to change some configurations those are the defaults
+If you want to change some configurations, those are the defaults
 
 ```lua
 require("size-matters").setup({
