@@ -34,8 +34,8 @@ If you want to change some configurations those are the defaults
 require("size-matters").setup({
 	default_mappings = true,
 	step_size = 1, -- font resize step size
-	notifications = true -- default value is true if notify is installed else false
-	reset_font = vim.api.nvim_get_option("guifont") -- Font used by the reset command / shortcut.
+	notifications = true, -- default value is true if notify is installed else false
+	reset_font = vim.api.nvim_get_option("guifont"), -- Font used by the reset command / shortcut.
 })
 ```
 
