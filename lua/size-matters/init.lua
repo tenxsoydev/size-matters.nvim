@@ -1,12 +1,20 @@
-local initFont = vim.api.nvim_get_option("guifont")
-local currFont, currFontName, currFontSize
-local notifications = true
+local M = {}
 
-local notify_ok, notify = pcall(require, "notify")
-if not notify_ok then
-	notifications = false
-end
+local notify_status, notify = pcall(require, "notify")
 local notifyOpts = { render = "minimal", timeout = 150, minimum_width = 10 }
+
+local config = {
+	default_mappings = true,
+	step_size = 1,
+	notifications = notify_status,
+	reset_font = vim.api.nvim_get_option("guifont")
+}
+
+function M.setup(opts)
+	config = vim.tbl_deep_extend("keep", opts, config)
+end
+
+local currFont, currFontName, currFontSize
 
 local function get_font()
 	currFont = vim.api.nvim_get_option("guifont")
@@ -14,38 +22,36 @@ local function get_font()
 	currFontSize = currFont:gsub(".*:h", "")
 end
 
-local function update_font(size)
+function M.update_font(size)
 	get_font()
 	if size == 'grow' then
-		currFont = currFontName .. ':h' .. tostring(tonumber(currFontSize) + 1)
-		if notifications then notify(" FontSize " .. tonumber(currFontSize) + 1, "info", notifyOpts) end
+		currFont = currFontName .. ':h' .. tostring(tonumber(currFontSize) + config.step_size)
+		if config.notifications then notify(" FontSize " .. tonumber(currFontSize) + config.step_size, "info", notifyOpts) end
 	elseif size == 'shrink' then
-		currFont = currFontName .. ':h' .. tostring(tonumber(currFontSize) - 1)
-		if notifications then notify(" FontSize " .. tonumber(currFontSize) - 1, "info", notifyOpts) end
+		currFont = currFontName .. ':h' .. tostring(tonumber(currFontSize) - config.step_size)
+		if config.notifications then notify(" FontSize " .. tonumber(currFontSize) - config.step_size, "info", notifyOpts) end
 	end
 	vim.opt.guifont = currFont
 end
 
-local function reset_font()
-	vim.opt.guifont = initFont
-	if notifications then notify(" " .. initFont, "info", notifyOpts) end
+function M.reset_font()
+	vim.opt.guifont = config.reset_font
+	if config.notifications then notify(" " .. config.reset_font, "info", notifyOpts) end
 end
 
 local command = vim.api.nvim_create_user_command
-command('FontSizeUp', function() update_font('grow') end, { desc = 'Increase font size' })
-command('FontSizeDown', function() update_font('shrink') end, { desc = 'Decrease font size' })
-command('FontDefault', function() reset_font() end, { desc = 'Reset to default font' })
+command('FontSizeUp', function() M.update_font('grow') end, { desc = 'Increase font size' })
+command('FontSizeDown', function() M.update_font('shrink') end, { desc = 'Decrease font size' })
+command('FontReset', function() M.reset_font() end, { desc = 'Reset to default font' })
 
-local map = vim.keymap.set
-map('n', '<C-+>', function() update_font('grow') end, { desc = 'Increase font size' })
-map('n', '<C-S-+>', function() update_font('grow') end, { desc = 'Increase font size' })
-map('n', '<C-->', function() update_font('shrink') end, { desc = 'Decrease font size' })
-map('n', '<C-ScrollWheelUp>', function() update_font('grow') end, { desc = 'Increase font size' })
-map('n', '<C-ScrollWheelDown>', function() update_font('shrink') end, { desc = 'Decrease font size' })
-map('n', '<A-C-=>', reset_font, { desc = 'Reset to default font' })
+if config.default_mappings then
+	local map = vim.keymap.set
+	map('n', '<C-+>', function() M.update_font('grow') end, { desc = 'Increase font size' })
+	map('n', '<C-S-+>', function() M.update_font('grow') end, { desc = 'Increase font size' })
+	map('n', '<C-->', function() M.update_font('shrink') end, { desc = 'Decrease font size' })
+	map('n', '<C-ScrollWheelUp>', function() M.update_font('grow') end, { desc = 'Increase font size' })
+	map('n', '<C-ScrollWheelDown>', function() M.update_font('shrink') end, { desc = 'Decrease font size' })
+	map('n', '<A-C-=>', M.reset_font, { desc = 'Reset to default font' })
+end
 
-return {
-	update_font = update_font,
-	reset_font = reset_font
-}
-
+return M

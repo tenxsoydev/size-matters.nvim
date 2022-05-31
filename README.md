@@ -33,11 +33,11 @@ This also being the latest stable release, we'll recommend upgrading your applic
 
 ## Outlook
 
--  [x] Improve notification for updating the font-size
--  [ ] Export options. E.g., to disable default mappings / notification visibility
--  [ ] Branch with support for versions \< 0.7 (if there is a community need for it)
+-  [x] Notifications when changing the font-size
+-  [x] User settings. E.g., to disable default mappings / notification visibility
+-  [ ] Send custom size values via commands
+-  ~~Branch with support for versions \< 0.7 (if there is a community need for it)~~
 
 [1]: https://github.com/neovide/neovide
 [2]: https://github.com/akiyosi/goneovim
 [3]: https://github.com/wbthomason/packer.nvim
-
