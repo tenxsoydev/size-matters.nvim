@@ -8,7 +8,7 @@ Lua plugin that adds dynamic font scaling to modern neovim GUI clients like [neo
 | --------------------- | -------------------------------------------------------------------- | -------------- |
 | Increase font size    | <kbd>Ctrl</kbd>+<kbd>+</kbd> / <kbd>Ctrl</kbd>+<kbd>ScrollUp</kbd>   | `FontSizeUp`   |
 | Decrease font size    | <kbd>Ctrl</kbd>+<kbd>-</kbd> / <kbd>Ctrl</kbd>+<kbd>ScrollDown</kbd> | `FontSizeDown` |
-| Reset font to default | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>=</kbd>                          | `FontDefault`  |
+| Reset font to default | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>=</kbd>                          | `FontReset`    |
 
 ## Installation
 
@@ -26,17 +26,29 @@ if vim.g.neovide or vim.g.goneovim or vim.g.nvui or vim.g.gnvim then
 end
 ```
 
+### Configuration
+
+If you want to change some configurations those are the defaults
+
+```lua
+require("size-matters").setup({
+	default_mappings = true,
+	step_size = 1, -- font resize step size
+	notifications = true -- default value is true if notify is installed else false
+	reset_font = vim.api.nvim_get_option("guifont") -- Font used by the reset command / shortcut.
+})
+```
+
 ### Requirements
 
-nvim >= v0.7. As the vim.api that was introduced with v0.7 is used.<br>
-This also being the latest stable release, we'll recommend upgrading your application and config when possible.
+nvim >= v0.7 - as APIs introduced with v0.7 are used.<br>
 
 ## Outlook
 
 -  [x] Notifications when changing the font-size
 -  [x] User settings. E.g., to disable default mappings / notification visibility
 -  [ ] Send custom size values via commands
--  ~~Branch with support for versions \< 0.7 (if there is a community need for it)~~
+-  [ ] ~~Branch with support for versions \< 0.7 (if there is a community need for it)~~
 
 [1]: https://github.com/neovide/neovide
 [2]: https://github.com/akiyosi/goneovim
