@@ -3,7 +3,5 @@ if vim.fn.has("nvim-0.7.0") == 0 then
 	return
 end
 
-if vim.g.loaden_size_matters then
-	return
-end
-vim.g.loaded_size_matters = true
+if vim.g.loaded_size_matters == 1 then return end
+vim.g.loaded_size_matters = 1

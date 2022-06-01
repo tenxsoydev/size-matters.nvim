@@ -39,10 +39,10 @@ function M.reset_font()
 	if config.notifications then notify(" " .. config.reset_font, "info", notifyOpts) end
 end
 
-local command = vim.api.nvim_create_user_command
-command('FontSizeUp', function() M.update_font('grow') end, { desc = 'Increase font size' })
-command('FontSizeDown', function() M.update_font('shrink') end, { desc = 'Decrease font size' })
-command('FontReset', function() M.reset_font() end, { desc = 'Reset to default font' })
+local cmd = vim.api.nvim_create_user_command
+cmd('FontSizeUp', function() M.update_font('grow') end, { desc = 'Increase font size' })
+cmd('FontSizeDown', function() M.update_font('shrink') end, { desc = 'Decrease font size' })
+cmd('FontReset', function() M.reset_font() end, { desc = 'Reset to default font' })
 
 if config.default_mappings then
 	local map = vim.keymap.set
