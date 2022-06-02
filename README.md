@@ -34,20 +34,20 @@ If you want to change some configurations, those are the defaults
 require("size-matters").setup({
 	default_mappings = true,
 	step_size = 1, -- font resize step size
-	notifications = true, -- default value is true if notify is installed else false
-	reset_font = vim.api.nvim_get_option("guifont"), -- Font used by the reset command / shortcut.
+	notifications = true | false, -- default value is true if notify is installed else false
+	reset_font = vim.api.nvim_get_option("guifont"), -- Font loaded when using the reset cmd / shortcut
 })
 ```
 
 ### Requirements
 
-nvim >= v0.7 - as APIs introduced with v0.7 are used.<br>
+nvim >= v0.7 _- as APIs introduced with v0.7 are used._
 
 ## Outlook
 
 -  [x] Notifications when changing the font-size
 -  [x] User settings. E.g., to disable default mappings / notification visibility
--  [ ] Send custom size values via commands
+-  [x] Commands can send custom font sizing values
 -  [ ] ~~Branch with support for versions \< 0.7 (if there is a community need for it)~~
 
 [1]: https://github.com/neovide/neovide
