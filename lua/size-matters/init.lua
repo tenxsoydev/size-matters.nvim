@@ -3,6 +3,11 @@ local M = {}
 local notify_status, notify = pcall(require, "notify")
 local notifyOpts = { render = "minimal", timeout = 150, minimum_width = 10 }
 
+---@class SizeMattersConfig
+---@field default_mappings boolean
+---@field step_size number
+---@field notifications boolean
+---@field reset_font string
 local config = {
 	default_mappings = true,
 	step_size = 1,
@@ -10,6 +15,7 @@ local config = {
 	reset_font = vim.api.nvim_get_option("guifont")
 }
 
+---@param opts SizeMattersConfig
 function M.setup(opts) config = vim.tbl_deep_extend("keep", opts, config) end
 
 local currFont, currFontName, currFontSize
@@ -20,15 +26,27 @@ local function get_font()
 	currFontSize = currFont:gsub(".*:h", "")
 end
 
-function M.update_font(direct, num)
+---@param modification string '"grow" | "shrink"'
+---@param amount number?
+function M.update_font(modification, amount)
 	get_font()
-	num = type(num) == "string" and tonumber(num) or config.step_size
-	if direct == "grow" then
-		currFont = currFontName .. ":h" .. tostring(tonumber(currFontSize) + num)
-		if config.notifications then notify(" FontSize " .. tonumber(currFontSize) + num, "info", notifyOpts) end
-	elseif direct == "shrink" then
-		currFont = currFontName .. ":h" .. tostring(tonumber(currFontSize) - num)
-		if config.notifications then notify(" FontSize " .. tonumber(currFontSize) - num, "info", notifyOpts) end
+	amount = type(amount) == "string" and tonumber(amount) or config.step_size
+	if modification == "grow" then
+		currFont = currFontName .. ":h" .. tostring(tonumber(currFontSize) + amount)
+		if config.notifications then
+			vim.loop.new_timer():start(200, 0, vim.schedule_wrap(function()
+				notify.dismiss()
+				notify(" FontSize " .. tonumber(currFontSize) + amount, "info", notifyOpts)
+			end))
+		end
+	elseif modification == "shrink" then
+		currFont = currFontName .. ":h" .. tostring(tonumber(currFontSize) - amount)
+		if config.notifications then
+			vim.loop.new_timer():start(200, 0, vim.schedule_wrap(function()
+				notify.dismiss()
+				notify(" FontSize " .. tonumber(currFontSize) - amount, "info", notifyOpts)
+			end))
+		end
 	end
 	vim.opt.guifont = currFont
 end
