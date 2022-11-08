@@ -1,13 +1,15 @@
 local M = {}
 
 local notify_status, notify = pcall(require, "notify")
-local active_notification_win_id
+local active_notification_win_id = -1
 local notifyOpts = {
 	render = "minimal",
 	timeout = 150,
 	minimum_width = 10,
 	on_open = function(win)
-		if active_notification_win_id then vim.api.nvim_win_close(active_notification_win_id, true) end
+		if vim.api.nvim_win_is_valid(active_notification_win_id) then
+			vim.api.nvim_win_close(active_notification_win_id, true)
+		end
 		active_notification_win_id = win
 	end,
 }
