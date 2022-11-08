@@ -1,7 +1,14 @@
 local M = {}
 
 local notify_status, notify = pcall(require, "notify")
-local notifyOpts = { render = "minimal", timeout = 150, minimum_width = 10 }
+local active_notification_win_id
+local notifyOpts = { render = "minimal", timeout = 150, minimum_width = 10,
+	on_open = function(win)
+		if active_notification_win_id then
+			vim.api.nvim_win_close(active_notification_win_id, true)
+		end
+		active_notification_win_id = win
+	end }
 
 ---@class SizeMattersConfig
 ---@field default_mappings boolean
@@ -26,7 +33,7 @@ local function get_font()
 	currFontSize = currFont:gsub(".*:h", "")
 end
 
----@param modification string '"grow" | "shrink"'
+---@param modification "grow" | "shrink"
 ---@param amount number?
 function M.update_font(modification, amount)
 	get_font()
@@ -35,7 +42,6 @@ function M.update_font(modification, amount)
 		currFont = currFontName .. ":h" .. tostring(tonumber(currFontSize) + amount)
 		if config.notifications then
 			vim.loop.new_timer():start(200, 0, vim.schedule_wrap(function()
-				notify.dismiss()
 				notify(" FontSize " .. tonumber(currFontSize) + amount, "info", notifyOpts)
 			end))
 		end
@@ -43,7 +49,6 @@ function M.update_font(modification, amount)
 		currFont = currFontName .. ":h" .. tostring(tonumber(currFontSize) - amount)
 		if config.notifications then
 			vim.loop.new_timer():start(200, 0, vim.schedule_wrap(function()
-				notify.dismiss()
 				notify(" FontSize " .. tonumber(currFontSize) - amount, "info", notifyOpts)
 			end))
 		end
