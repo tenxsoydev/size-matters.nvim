@@ -1,5 +1,5 @@
-if vim.fn.has("nvim-0.7.0") == 0 then
-	vim.api.nvim_err_writeln("size-matters requires nvim version 0.7 or above")
+if vim.fn.has "nvim-0.7.0" == 0 then
+	vim.api.nvim_err_writeln "size-matters requires nvim version 0.7 or above"
 	return
 end
 
