@@ -1,76 +1,55 @@
 local M = {}
 
-local notify_status, notify = pcall(require, "notify")
-local active_notification_win_id = -1
-local notifyOpts = {
-	render = "minimal",
-	timeout = 150,
-	minimum_width = 10,
-	on_open = function(win)
-		if vim.api.nvim_win_is_valid(active_notification_win_id) then
-			vim.api.nvim_win_close(active_notification_win_id, true)
-		end
-		active_notification_win_id = win
-	end,
-}
+local notifications = require "size-matters.notifications"
+local config = require("size-matters.config").defaults
 
----@class SizeMattersConfig
----@field default_mappings boolean
----@field step_size number
----@field notifications boolean
----@field reset_font string
-local config = {
-	default_mappings = true,
-	step_size = 1,
-	notifications = notify_status,
-	reset_font = vim.api.nvim_get_option "guifont",
-}
+---@param user_config? Config
+function M.setup(user_config) config = vim.tbl_deep_extend("keep", user_config or {}, config) end
 
----@param opts SizeMattersConfig
-function M.setup(opts) config = vim.tbl_deep_extend("keep", opts, config) end
+---@type string
+local guifont
 
-local currFont, currFontName, currFontSize
+---@type { name: string, size: string|number }
+local curr_font = {}
 
 local function get_font()
-	currFont = vim.api.nvim_get_option "guifont"
-	currFontName = currFont:gsub("(.*)%:.*$", "%1")
-	currFontSize = currFont:gsub(".*:h", "")
+	guifont = vim.api.nvim_get_option "guifont"
+	curr_font.name = guifont:gsub("(.*)%:.*$", "%1")
+	curr_font.size = guifont:gsub(".*:h", "")
 end
 
----@param modification "grow" | "shrink"
+---@param modification "grow"|"shrink"
 ---@param amount number?
 function M.update_font(modification, amount)
 	get_font()
+
 	amount = type(amount) == "string" and tonumber(amount) or config.step_size
+	curr_font.size = type(curr_font.size) == "string" and tonumber(curr_font.size) or curr_font.size
+
 	if modification == "grow" then
-		currFont = currFontName .. ":h" .. tostring(tonumber(currFontSize) + amount)
-		if config.notifications then
-			vim.loop.new_timer():start(
-				200,
-				0,
-				vim.schedule_wrap(
-					function() notify(" FontSize " .. tonumber(currFontSize) + amount, "info", notifyOpts) end
-				)
-			)
+		guifont = curr_font.name .. ":h" .. tostring(curr_font.size + amount)
+
+		if not config.notifications or not config.notifications.enable then
+			goto continue
 		end
+
+		notifications.send(" FontSize " .. curr_font.size + amount, config.notifications)
 	elseif modification == "shrink" then
-		currFont = currFontName .. ":h" .. tostring(tonumber(currFontSize) - amount)
-		if config.notifications then
-			vim.loop.new_timer():start(
-				200,
-				0,
-				vim.schedule_wrap(
-					function() notify(" FontSize " .. tonumber(currFontSize) - amount, "info", notifyOpts) end
-				)
-			)
+		guifont = curr_font.name .. ":h" .. tostring(curr_font.size - amount)
+
+		if not config.notifications or not config.notifications.enable then
+			goto continue
 		end
+		notifications.send(" FontSize " .. curr_font.size - amount, config.notifications)
 	end
-	vim.opt.guifont = currFont
+
+	::continue::
+	vim.opt.guifont = guifont
 end
 
 function M.reset_font()
 	vim.opt.guifont = config.reset_font
-	if config.notifications then notify(" " .. config.reset_font, "info", notifyOpts) end
+	if config.notifications then notifications.send(" " .. config.reset_font, config.notifications) end
 end
 
 local cmd = vim.api.nvim_create_user_command
