@@ -6,7 +6,7 @@ local config = require("size-matters.config").defaults
 ---@param user_config? Config
 function M.setup(user_config) config = vim.tbl_deep_extend("keep", user_config or {}, config) end
 
----@type string
+---@type string?
 local guifont
 
 ---@type { name: string, size: string|number }
@@ -49,7 +49,9 @@ end
 
 function M.reset_font()
 	vim.opt.guifont = config.reset_font
-	if config.notifications then notifications.send(" " .. config.reset_font, config.notifications) end
+
+	if not config.notifications or not config.notifications.enable then return end
+	notifications.send(" " .. config.reset_font, config.notifications)
 end
 
 local cmd = vim.api.nvim_create_user_command
