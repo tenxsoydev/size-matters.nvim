@@ -29,21 +29,17 @@ function M.update_font(modification, amount)
 	if modification == "grow" then
 		guifont = curr_font.name .. ":h" .. tostring(curr_font.size + amount)
 
-		if not config.notifications or not config.notifications.enable then
-			goto continue
+		if config.notifications.enable then
+			notifications.send(" FontSize " .. curr_font.size + amount, config.notifications)
 		end
-
-		notifications.send(" FontSize " .. curr_font.size + amount, config.notifications)
 	elseif modification == "shrink" then
 		guifont = curr_font.name .. ":h" .. tostring(curr_font.size - amount)
 
-		if not config.notifications or not config.notifications.enable then
-			goto continue
+		if config.notifications.enable then
+			notifications.send(" FontSize " .. curr_font.size - amount, config.notifications)
 		end
-		notifications.send(" FontSize " .. curr_font.size - amount, config.notifications)
 	end
 
-	::continue::
 	vim.opt.guifont = guifont
 end
 

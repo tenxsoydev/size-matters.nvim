@@ -1,7 +1,7 @@
 local M = {}
 
-M.notify_status = pcall(require, "notify")
-if not M.notify_status then return end
+local has_notify = pcall(require, "notify")
+if not has_notify then return end
 
 local notify = require "notify"
 

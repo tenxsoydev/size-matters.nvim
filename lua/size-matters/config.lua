@@ -16,7 +16,7 @@ M.defaults = {
 	default_mappings = true,
 	step_size = 1,
 	notifications = {
-		enable = require("size-matters.notifications").notify_status,
+		enable = pcall(require, "notify"),
 		delay = 200,
 		timeout = 150,
 	},
