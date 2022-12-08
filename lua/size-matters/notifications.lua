@@ -1,9 +1,7 @@
 local M = {}
 
-local has_notify = pcall(require, "notify")
-if not has_notify then return end
-
-local notify = require "notify"
+local ok, notify = pcall(require, "notify")
+if not ok then return end
 
 local active_notification_win_id = -1
 

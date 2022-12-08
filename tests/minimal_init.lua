@@ -5,7 +5,7 @@ end
 
 vim.opt.rtp:append "../"
 vim.opt.rtp:append(plenary_dir)
-vim.opt.guifont = "SomeNerdFont:h12.5"
+vim.opt.guifont = "SomeNerdFont:h12"
 
 vim.cmd "runtime plugin/plenary.vim"
 require "plenary.busted"
