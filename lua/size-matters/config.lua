@@ -16,8 +16,8 @@ M.defaults = {
 	default_mappings = true,
 	step_size = 1,
 	notifications = {
-		enable = pcall(require, "notify"),
-		delay = 200,
+		enable = true,
+		delay = 300,
 		timeout = 150,
 	},
 	reset_font = vim.api.nvim_get_option "guifont",
