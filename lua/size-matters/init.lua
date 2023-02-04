@@ -14,15 +14,16 @@ local curr_font = {}
 
 local function get_font()
 	guifont = vim.api.nvim_get_option "guifont"
-	curr_font.name = guifont:gsub("(.*)%:.*$", "%1")
-	curr_font.size = guifont:gsub(".*:h", "")
+	curr_font.name = guifont:reverse():match(".+%:(.*)"):reverse()
+	curr_font.size = guifont:match "%:h(%d+%.?%d?)"
 end
 
 ---@param modification "grow"|"shrink"
----@param amount number?
+---@param amount? number|string
 function M.update_font(modification, amount)
 	get_font()
 
+	---@cast amount number
 	amount = type(amount) == "string" and tonumber(amount) or config.step_size
 	curr_font.size = type(curr_font.size) == "string" and tonumber(curr_font.size) or curr_font.size
 
