@@ -25,7 +25,6 @@ function M.send(message, config)
 	local notifyOpts = {
 		render = "minimal",
 		timeout = config.timeout,
-		minimum_width = 10,
 		on_open = function(win)
 			if vim.api.nvim_win_is_valid(active_notify_msg_win_id) then
 				vim.api.nvim_win_close(active_notify_msg_win_id, true)
