@@ -8,17 +8,16 @@ local active_notify_msg_win_id = -1
 ---@param config NotificationOpts
 function M.send(message, config)
 	if not notify_ok then
-		vim.defer_fn(function()
-			if notifier_ok then
-				local sm_notifications = 0
-				local notifier_status = require "notifier.status"
-				for _, notification in ipairs(notifier_status.active.nvim) do
-					if notification.mandat:match "FontSize" then sm_notifications = sm_notifications + 1 end
-				end
-				if sm_notifications > 1 then notifier_status.pop "nvim" end
+		if notifier_ok then
+			local sm_notifications = 0
+			local notifier_status = require "notifier.status"
+			for _, notification in ipairs(notifier_status.active.nvim) do
+				if notification.mandat:match "FontSize" then sm_notifications = sm_notifications + 1 end
 			end
-			vim.notify(message)
-		end, config.delay)
+			if sm_notifications > 1 then notifier_status.pop "nvim" end
+		end
+
+		vim.defer_fn(function() vim.notify(message) end, config.delay)
 		return
 	end
 
