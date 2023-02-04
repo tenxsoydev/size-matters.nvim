@@ -52,8 +52,8 @@ function M.reset_font()
 end
 
 local cmd = vim.api.nvim_create_user_command
-cmd("FontSizeUp", function(num) M.update_font("grow", num.args) end, { nargs = 1 })
-cmd("FontSizeDown", function(num) M.update_font("shrink", num.args) end, { nargs = 1 })
+cmd("FontSizeUp", function(num) M.update_font("grow", num.args) end, { nargs = "?" })
+cmd("FontSizeDown", function(num) M.update_font("shrink", num.args) end, { nargs = "?" })
 cmd("FontReset", function() M.reset_font() end, {})
 
 if config.default_mappings then
