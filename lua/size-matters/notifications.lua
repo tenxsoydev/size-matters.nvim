@@ -11,6 +11,7 @@ function M.send(message, config)
 		if notifier_ok then
 			local sm_notifications = 0
 			local notifier_status = require "notifier.status"
+			if notifier_status.active.nvim == nil then return end
 			for _, notification in ipairs(notifier_status.active.nvim) do
 				if notification.mandat:match "FontSize" then sm_notifications = sm_notifications + 1 end
 			end
